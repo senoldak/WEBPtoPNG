@@ -1,4 +1,4 @@
-# WebP Converter Pro 🚀 (Chrome Extension - Manifest V3)
+# WebP - PNG Converter 🚀 (Chrome Extension - Manifest V3)
 
 [![Chrome Extension](https://img.shields.io/badge/Chrome_Extension-Manifest_V3-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/mv3/intro/)
 [![Version](https://img.shields.io/badge/Version-2.0.0-6366F1?style=for-the-badge)](https://github.com/)
@@ -6,7 +6,7 @@
 [![Offline](https://img.shields.io/badge/Offline_Ready-100%25-34D399?style=for-the-badge)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 [![Privacy First](https://img.shields.io/badge/Privacy-100%25_Local-A855F7?style=for-the-badge)](https://github.com/)
 
-**WebP Converter Pro** is an open-source, high-performance, privacy-first Google Chrome Extension (Manifest V3) designed to effortlessly convert WebP images into **PNG**, **JPEG**, **WEBP**, or **BMP** formats. 
+**WebP - PNG Converter** is an open-source, high-performance, privacy-first Google Chrome Extension (Manifest V3) designed to effortlessly convert WebP images into **PNG**, **JPEG**, **WEBP**, or **BMP** formats. 
 
 It provides seamless **online conversion** via Chrome's right-click context menu and **offline batch conversion** through a modern glassmorphic control panel popup with drag-and-drop support, single-click ZIP archive downloads, image scaling, compression controls, background color fills, and direct clipboard copying.
 
@@ -86,7 +86,7 @@ It provides seamless **online conversion** via Chrome's right-click context menu
 - **`offscreen.html` & `offscreen.js`**: Hidden DOM context facilitating HTML5 Canvas drawing, format encoding (`toDataURL`), scaling, and background clipboard writing (`navigator.clipboard.write`).
 - **`popup.html`, `popup.css`, `popup.js`**: Glassmorphic user interface offering settings toggles (Format, Quality, Scale, Fill, Subfolder), file dropzone, list history, item actions, and ZIP archive generation.
 - **`lib/jszip.min.js`**: Lightweight, zero-dependency local JSZip implementation handling offline ZIP bundling.
-- **`tools/generate_icons.js`**: Standalone Node.js utility for generating valid PNG icons (16x16, 48x48, 128x128).
+- **`tools/generate_minimal_icon.js`**: Standalone Node.js utility for generating vector icons (16x16, 48x48, 128x128).
 
 ---
 
@@ -106,7 +106,7 @@ WEBPtoPNG/
 ├── lib/
 │   └── jszip.min.js         # Offline standalone ZIP archiving module
 ├── tools/
-│   └── generate_icons.js    # Node.js icon generator script
+│   └── generate_minimal_icon.js # Node.js icon generator script
 └── icons/                   # Extension icons
     ├── icon16.png
     ├── icon48.png
@@ -130,7 +130,7 @@ WEBPtoPNG/
 4. **Load the Extension**:
    Click the **Load unpacked** button in the top-left corner and select the cloned `WEBPtoPNG` directory.
 5. **Pin Extension**:
-   Click the puzzle icon in Chrome's toolbar and pin **WebP Converter Pro** for quick access.
+   Click the puzzle icon in Chrome's toolbar and pin **WebP - PNG Converter** for quick access.
 
 ---
 
@@ -139,13 +139,13 @@ WEBPtoPNG/
 ### A. Right-Clicking Online Web Images
 1. Navigate to any webpage containing WebP images.
 2. Right-click on the image.
-3. Hover over **WebP Converter Pro** in the context menu:
+3. Hover over **WebP - PNG Converter** in the context menu:
    - Click **Save WebP as PNG** to convert and download as PNG.
    - Click **Save WebP as JPEG** to convert and download as JPEG.
    - Click **Copy WebP as PNG to Clipboard** to copy the PNG image directly to your clipboard.
 
 ### B. Drag & Drop Conversion in Popup
-1. Click the **WebP Converter Pro** icon in your extension toolbar.
+1. Click the **WebP - PNG Converter** icon in your extension toolbar.
 2. Configure your conversion preferences:
    - **Format**: Select `PNG`, `JPEG`, `WEBP`, or `BMP`.
    - **Quality**: Adjust slider (for JPEG/WEBP).

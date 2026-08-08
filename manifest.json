@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "WebP Converter Pro",
+  "name": "WebP - PNG Converter",
   "version": "2.0.0",
   "description": "Convert WebP images to PNG, JPEG, WEBP, or BMP online & offline. Includes batch ZIP, resizing, and copy to clipboard.",
   "permissions": [
@@ -18,7 +18,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "WebP Converter Pro",
+    "default_title": "WebP - PNG Converter",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
