@@ -133,7 +133,7 @@ async function setupOffscreenDocument(path) {
 
   await chrome.offscreen.createDocument({
     url: path,
-    reasons: ['BLOB'],
-    justification: 'Convert WebP image to target format via canvas rendering'
+    reasons: ['BLOBS', 'CLIPBOARD'],
+    justification: 'Convert WebP image to target format and optionally copy to clipboard'
   });
 }

@@ -83,22 +83,27 @@ async function convertWebpImage(options) {
           let copied = false;
           if (copyToClipboard) {
             try {
+              if (typeof window !== 'undefined' && window.focus) {
+                window.focus();
+              }
               canvas.toBlob(async (blob) => {
                 if (blob) {
                   try {
+                    const type = blob.type || 'image/png';
                     await navigator.clipboard.write([
-                      new ClipboardItem({ [blob.type || 'image/png']: blob })
+                      new ClipboardItem({ [type]: blob })
                     ]);
                     copied = true;
                   } catch (clipErr) {
-                    console.warn('Clipboard write failed:', clipErr);
+                    // Handled gracefully if window focus is restricted by browser policy
+                    copied = false;
                   }
                 }
                 resolve({ success: true, dataUrl, filename: targetFilename, copied });
               }, 'image/png');
               return;
             } catch (err) {
-              console.warn('Clipboard toBlob error:', err);
+              copied = false;
             }
           }
 

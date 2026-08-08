@@ -7,103 +7,134 @@
   <link rel="stylesheet" href="popup.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="app-container">
+  <div class="shell">
+    <!-- Extension Header -->
     <header class="app-header">
       <div class="brand">
-        <div class="logo">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="24" height="24" rx="6" fill="url(#grad)"/>
+        <div class="logo-mark">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="7" fill="url(#brand-grad)"/>
             <path d="M7 17L17 7M17 7H10M17 7V14" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
             <defs>
-              <linearGradient id="grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+              <linearGradient id="brand-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
                 <stop stop-color="#6366F1"/>
                 <stop offset="1" stop-color="#A855F7"/>
               </linearGradient>
             </defs>
           </svg>
         </div>
-        <h1>WebP <span>→</span> PNG</h1>
+        <div class="brand-text">
+          <h1>WebP <span>→</span> PNG</h1>
+        </div>
       </div>
-      <span class="badge">
+      <div class="status-pill">
         <span class="pulse-dot"></span>
-        Offline Ready
-      </span>
+        <span>Offline</span>
+      </div>
     </header>
 
-    <main class="main-content">
-      <!-- Settings Panel -->
-      <div class="settings-card">
-        <div class="setting-row">
-          <label for="format-select">Format</label>
-          <select id="format-select" class="form-control">
-            <option value="png" selected>PNG (Lossless)</option>
-            <option value="jpeg">JPEG (Compressed)</option>
-            <option value="webp">WEBP</option>
-            <option value="bmp">BMP</option>
-          </select>
+    <!-- Main Workspace -->
+    <main class="workspace">
+      <!-- Target Format Selector (Segmented Tabs) -->
+      <div class="control-group">
+        <label class="control-label">Target Format</label>
+        <div class="segmented-control" id="format-segmented">
+          <button class="segment active" data-value="png">PNG</button>
+          <button class="segment" data-value="jpeg">JPEG</button>
+          <button class="segment" data-value="webp">WEBP</button>
+          <button class="segment" data-value="bmp">BMP</button>
+        </div>
+        <select id="format-select" hidden>
+          <option value="png" selected>PNG</option>
+          <option value="jpeg">JPEG</option>
+          <option value="webp">WEBP</option>
+          <option value="bmp">BMP</option>
+        </select>
+      </div>
+
+      <!-- Controls Drawer (Quality, Scale, Background Fill) -->
+      <div class="controls-drawer">
+        <!-- Quality Slider (shown for JPEG / WEBP) -->
+        <div class="control-row" id="quality-container" style="display: none;">
+          <div class="label-with-value">
+            <span class="control-label">Quality</span>
+            <span class="value-badge" id="quality-val">90%</span>
+          </div>
+          <input type="range" id="quality-range" min="10" max="100" value="90" class="range-slider">
         </div>
 
-        <div class="setting-row" id="quality-container" style="display: none;">
-          <label for="quality-range">Quality: <span id="quality-val">90%</span></label>
-          <input type="range" id="quality-range" min="10" max="100" value="90" class="form-range">
+        <div class="control-grid">
+          <!-- Scale Select -->
+          <div class="control-row">
+            <span class="control-label">Scale</span>
+            <select id="scale-select" class="custom-select">
+              <option value="1.0" selected>100% (Original)</option>
+              <option value="0.75">75%</option>
+              <option value="0.5">50%</option>
+              <option value="1.5">150%</option>
+              <option value="2.0">200% (2x)</option>
+            </select>
+          </div>
+
+          <!-- Background Fill Select -->
+          <div class="control-row">
+            <span class="control-label">Background</span>
+            <select id="bg-select" class="custom-select">
+              <option value="transparent" selected>Transparent</option>
+              <option value="#ffffff">White Fill</option>
+              <option value="#000000">Black Fill</option>
+            </select>
+          </div>
         </div>
 
-        <div class="setting-row">
-          <label for="scale-select">Scale</label>
-          <select id="scale-select" class="form-control">
-            <option value="1.0" selected>100% (Original)</option>
-            <option value="0.75">75%</option>
-            <option value="0.5">50%</option>
-            <option value="1.5">150%</option>
-            <option value="2.0">200% (2x)</option>
-          </select>
+        <!-- Subfolder & Context Option -->
+        <div class="control-row">
+          <span class="control-label">Save Subfolder</span>
+          <input type="text" id="folder-input" class="custom-input" placeholder="e.g. Converted/">
         </div>
 
-        <div class="setting-row">
-          <label for="bg-select">Background</label>
-          <select id="bg-select" class="form-control">
-            <option value="transparent" selected>Transparent</option>
-            <option value="#ffffff">White Fill</option>
-            <option value="#000000">Black Fill</option>
-          </select>
-        </div>
-
-        <div class="setting-row">
-          <label for="folder-input">Subfolder</label>
-          <input type="text" id="folder-input" class="form-control text-input" placeholder="e.g. Converted/">
+        <div class="control-row checkbox-row">
+          <label class="checkbox-container" for="advanced-menu-checkbox">
+            <input type="checkbox" id="advanced-menu-checkbox">
+            <span class="checkmark"></span>
+            <span class="checkbox-text">Advanced right-click submenus</span>
+          </label>
         </div>
       </div>
 
-      <!-- Drop Zone -->
-      <div class="drop-zone" id="drop-zone">
+      <!-- Interactive Drag & Drop Area -->
+      <div class="drop-card" id="drop-zone">
         <input type="file" id="file-input" accept=".webp,image/webp" multiple hidden>
-        <div class="drop-zone-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <div class="drop-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 14v4a2 2 0 002 2h12a2 2 0 002-2v-4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <p class="drop-title">Drag & Drop WebP Files</p>
-        <p class="drop-subtitle">or click to browse from device</p>
+        <div class="drop-text-group">
+          <p class="drop-primary">Drop WebP files here</p>
+          <p class="drop-secondary">or click to choose files from device</p>
+        </div>
       </div>
 
-      <!-- File List & Batch Controls -->
-      <div class="file-list-container" id="file-list-container" style="display: none;">
-        <div class="section-header">
-          <h2 class="section-title">Converted Files</h2>
-          <div class="header-actions">
-            <button id="download-zip-btn" class="btn-action zip">ZIP Archive</button>
-            <button id="clear-list-btn" class="btn-clear" title="Clear List">Clear</button>
+      <!-- Conversion History & Queue List -->
+      <div class="queue-section" id="file-list-container" style="display: none;">
+        <div class="queue-header">
+          <h2 class="queue-title">Converted Queue</h2>
+          <div class="queue-actions">
+            <button id="download-zip-btn" class="btn-zip">ZIP Download</button>
+            <button id="clear-list-btn" class="btn-clear" title="Clear Queue">Clear</button>
           </div>
         </div>
-        <div class="file-list" id="file-list"></div>
+        <div class="queue-list" id="file-list"></div>
       </div>
     </main>
 
+    <!-- Footer -->
     <footer class="app-footer">
-      <p>WebP - PNG Converter • 100% Private Local Execution</p>
+      <span>WebP - PNG Converter • Local Canvas Engine</span>
     </footer>
   </div>
 

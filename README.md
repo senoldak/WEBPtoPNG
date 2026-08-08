@@ -15,11 +15,11 @@ It provides seamless **online conversion** via Chrome's right-click context menu
 ## 🌟 Key Features & Capabilities
 
 ### 1. 🌐 Online Context Menu Right-Click Actions
-- Right-click any WebP image on any website to convert and download it instantly.
-- Context menu options include:
-  - **Save WebP as PNG** (Lossless transparent export)
-  - **Save WebP as JPEG** (Compressed format)
-  - **Copy WebP as PNG to Clipboard** (Instant clipboard copy for fast pasting into Photoshop, Figma, Slack, Discord, Notion, etc.)
+- **Default Behavior**: Right-click any WebP image on any website to directly see a single 1-click menu item: **"Save WebP as PNG"** (converts and downloads immediately without submenus).
+- **Optional Advanced Submenus**: Toggle **"Show Advanced Context Submenus"** in Popup Settings to enable additional right-click options:
+  - **Save WebP as PNG**
+  - **Save WebP as JPEG**
+  - **Copy WebP as PNG to Clipboard**
 
 ### 2. ⚡ Offline Batch Drag & Drop Control Panel
 - Drag and drop single or multiple `.webp` files directly into the extension popup.

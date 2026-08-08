@@ -13,11 +13,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const scaleSelect = document.getElementById('scale-select');
   const bgSelect = document.getElementById('bg-select');
   const folderInput = document.getElementById('folder-input');
+  const advancedMenuCheckbox = document.getElementById('advanced-menu-checkbox');
 
   const canvas = document.getElementById('popup-canvas');
   const ctx = canvas.getContext('2d');
 
   const convertedFilesHistory = [];
+
+  // Load storage preferences
+  if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.sync) {
+    chrome.storage.sync.get({ showAdvancedMenu: false }, (data) => {
+      advancedMenuCheckbox.checked = !!data.showAdvancedMenu;
+    });
+
+    advancedMenuCheckbox.addEventListener('change', () => {
+      chrome.storage.sync.set({ showAdvancedMenu: advancedMenuCheckbox.checked });
+    });
+  }
 
   // Toggle Quality Slider visibility based on format
   formatSelect.addEventListener('change', () => {
