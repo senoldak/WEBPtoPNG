@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadZipBtn = document.getElementById('download-zip-btn');
   
   const formatSelect = document.getElementById('format-select');
+  const formatSegmented = document.getElementById('format-segmented');
   const qualityContainer = document.getElementById('quality-container');
   const qualityRange = document.getElementById('quality-range');
   const qualityVal = document.getElementById('quality-val');
@@ -19,6 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const ctx = canvas.getContext('2d');
 
   const convertedFilesHistory = [];
+
+  // Bind Segmented Control
+  if (formatSegmented) {
+    const segments = formatSegmented.querySelectorAll('.segment');
+    segments.forEach(btn => {
+      btn.addEventListener('click', () => {
+        segments.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const val = btn.getAttribute('data-value');
+        formatSelect.value = val;
+        formatSelect.dispatchEvent(new Event('change'));
+      });
+    });
+  }
 
   // Load storage preferences
   if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.sync) {
@@ -107,11 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       downloadZipBtn.disabled = false;
-      downloadZipBtn.textContent = 'ZIP Archive';
+      downloadZipBtn.textContent = 'ZIP Download';
     } catch (err) {
       alert(`ZIP Error: ${err.message}`);
       downloadZipBtn.disabled = false;
-      downloadZipBtn.textContent = 'ZIP Archive';
+      downloadZipBtn.textContent = 'ZIP Download';
     }
   });
 
@@ -140,11 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const itemEl = document.createElement('div');
-    itemEl.className = 'file-item loading';
+    itemEl.className = 'queue-item loading';
     itemEl.innerHTML = `
-      <div class="file-info">
-        <span class="file-name">${escapeHtml(file.name)}</span>
-        <span class="file-status">Converting...</span>
+      <div class="queue-info">
+        <span class="queue-filename">${escapeHtml(file.name)}</span>
+        <span class="queue-status">Converting...</span>
       </div>
       <div class="spinner"></div>
     `;
@@ -169,13 +184,13 @@ document.addEventListener('DOMContentLoaded', () => {
       itemEl.classList.remove('loading');
       itemEl.classList.add('success');
       itemEl.innerHTML = `
-        <div class="file-info">
-          <span class="file-name">${escapeHtml(targetName)}</span>
-          <span class="file-status success">✓ Downloaded (${format.toUpperCase()})</span>
+        <div class="queue-info">
+          <span class="queue-filename">${escapeHtml(targetName)}</span>
+          <span class="queue-status success">✓ Saved (${format.toUpperCase()})</span>
         </div>
-        <div class="item-actions">
-          <button class="btn-icon btn-copy-item" title="Copy to Clipboard">Copy</button>
-          <a class="btn-icon" href="${targetDataUrl}" download="${targetName}">Save</a>
+        <div class="item-buttons">
+          <button class="btn-action-icon btn-copy-item" title="Copy to Clipboard">Copy</button>
+          <a class="btn-action-icon" href="${targetDataUrl}" download="${targetName}">Save</a>
         </div>
       `;
 
@@ -209,9 +224,9 @@ document.addEventListener('DOMContentLoaded', () => {
       itemEl.classList.remove('loading');
       itemEl.classList.add('error');
       itemEl.innerHTML = `
-        <div class="file-info">
-          <span class="file-name">${escapeHtml(file.name)}</span>
-          <span class="file-status error">Error: ${escapeHtml(err.message)}</span>
+        <div class="queue-info">
+          <span class="queue-filename">${escapeHtml(file.name)}</span>
+          <span class="queue-status error">Error: ${escapeHtml(err.message)}</span>
         </div>
       `;
     }
