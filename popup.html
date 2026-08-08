@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebP Converter Pro</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="6" fill="url(#grad)"/>
+            <path d="M7 17L17 7M17 7H10M17 7V14" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366F1"/>
+                <stop offset="1" stop-color="#A855F7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1>WebP Converter <span>Pro</span></h1>
+      </div>
+      <span class="badge">
+        <span class="pulse-dot"></span>
+        v2.0 Offline
+      </span>
+    </header>
+
+    <main class="main-content">
+      <!-- Settings Panel -->
+      <div class="settings-card">
+        <div class="setting-row">
+          <label for="format-select">Format</label>
+          <select id="format-select" class="form-control">
+            <option value="png" selected>PNG (Lossless)</option>
+            <option value="jpeg">JPEG (Compressed)</option>
+            <option value="webp">WEBP</option>
+            <option value="bmp">BMP</option>
+          </select>
+        </div>
+
+        <div class="setting-row" id="quality-container" style="display: none;">
+          <label for="quality-range">Quality: <span id="quality-val">90%</span></label>
+          <input type="range" id="quality-range" min="10" max="100" value="90" class="form-range">
+        </div>
+
+        <div class="setting-row">
+          <label for="scale-select">Scale</label>
+          <select id="scale-select" class="form-control">
+            <option value="1.0" selected>100% (Original)</option>
+            <option value="0.75">75%</option>
+            <option value="0.5">50%</option>
+            <option value="1.5">150%</option>
+            <option value="2.0">200% (2x)</option>
+          </select>
+        </div>
+
+        <div class="setting-row">
+          <label for="bg-select">Background</label>
+          <select id="bg-select" class="form-control">
+            <option value="transparent" selected>Transparent</option>
+            <option value="#ffffff">White Fill</option>
+            <option value="#000000">Black Fill</option>
+          </select>
+        </div>
+
+        <div class="setting-row">
+          <label for="folder-input">Subfolder</label>
+          <input type="text" id="folder-input" class="form-control text-input" placeholder="e.g. Converted/">
+        </div>
+      </div>
+
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="drop-zone">
+        <input type="file" id="file-input" accept=".webp,image/webp" multiple hidden>
+        <div class="drop-zone-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 14v4a2 2 0 002 2h12a2 2 0 002-2v-4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="drop-title">Drag & Drop WebP Files</p>
+        <p class="drop-subtitle">or click to browse from device</p>
+      </div>
+
+      <!-- File List & Batch Controls -->
+      <div class="file-list-container" id="file-list-container" style="display: none;">
+        <div class="section-header">
+          <h2 class="section-title">Converted Files</h2>
+          <div class="header-actions">
+            <button id="download-zip-btn" class="btn-action zip">ZIP Archive</button>
+            <button id="clear-list-btn" class="btn-clear" title="Clear List">Clear</button>
+          </div>
+        </div>
+        <div class="file-list" id="file-list"></div>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <p>WebP Converter Pro • 100% Private Local Execution</p>
+    </footer>
+  </div>
+
+  <canvas id="popup-canvas" hidden></canvas>
+  <script src="lib/jszip.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
