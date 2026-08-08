@@ -8,18 +8,18 @@
 
 **WebP - PNG Converter** is an open-source, high-performance, privacy-first Google Chrome Extension (Manifest V3) designed to effortlessly convert WebP images into **PNG**, **JPEG**, **WEBP**, or **BMP** formats. 
 
-It provides seamless **online conversion** via Chrome's right-click context menu and **offline batch conversion** through a modern glassmorphic control panel popup with drag-and-drop support, single-click ZIP archive downloads, image scaling, compression controls, background color fills, and direct clipboard copying.
+It provides seamless **1-click online conversion** via Chrome's right-click context menu and **offline batch conversion** through a modern glassmorphic control panel popup with drag-and-drop support, single-click ZIP archive downloads, image scaling, compression controls, background color fills, and direct clipboard copying.
 
 ---
 
 ## 🌟 Key Features & Capabilities
 
 ### 1. 🌐 Online Context Menu Right-Click Actions
-- **Default Behavior**: Right-click any WebP image on any website to directly see a single 1-click menu item: **"Save WebP as PNG"** (converts and downloads immediately without submenus).
-- **Optional Advanced Submenus**: Toggle **"Show Advanced Context Submenus"** in Popup Settings to enable additional right-click options:
+- **Default 1-Click Action**: Right-click any WebP image on any website to directly see **"Save WebP as PNG"** (converts and downloads instantly without submenu clutter).
+- **Optional Advanced Submenus**: Enable **"Show Advanced Context Submenus"** in Popup Settings to activate multi-format right-click options:
   - **Save WebP as PNG**
   - **Save WebP as JPEG**
-  - **Copy WebP as PNG to Clipboard**
+  - **Copy WebP as PNG to Clipboard** (Instant clipboard copy for fast pasting into Photoshop, Figma, Slack, Discord, Notion, etc.)
 
 ### 2. ⚡ Offline Batch Drag & Drop Control Panel
 - Drag and drop single or multiple `.webp` files directly into the extension popup.
@@ -84,7 +84,7 @@ It provides seamless **online conversion** via Chrome's right-click context menu
 - **`manifest.json`**: Extension manifest (Version 3) registering background service worker, permissions, popup UI, and icon assets.
 - **`background.js`**: Background service worker managing context menu registration (`chrome.contextMenus`), event listeners, and offscreen document creation.
 - **`offscreen.html` & `offscreen.js`**: Hidden DOM context facilitating HTML5 Canvas drawing, format encoding (`toDataURL`), scaling, and background clipboard writing (`navigator.clipboard.write`).
-- **`popup.html`, `popup.css`, `popup.js`**: Glassmorphic user interface offering settings toggles (Format, Quality, Scale, Fill, Subfolder), file dropzone, list history, item actions, and ZIP archive generation.
+- **`popup.html`, `popup.css`, `popup.js`**: Glassmorphic user interface offering settings toggles (Format, Quality, Scale, Fill, Subfolder, Context Menu), file dropzone, queue history, item actions, and ZIP archive generation.
 - **`lib/jszip.min.js`**: Lightweight, zero-dependency local JSZip implementation handling offline ZIP bundling.
 - **`tools/generate_minimal_icon.js`**: Standalone Node.js utility for generating vector icons (16x16, 48x48, 128x128).
 
@@ -139,10 +139,8 @@ WEBPtoPNG/
 ### A. Right-Clicking Online Web Images
 1. Navigate to any webpage containing WebP images.
 2. Right-click on the image.
-3. Hover over **WebP - PNG Converter** in the context menu:
-   - Click **Save WebP as PNG** to convert and download as PNG.
-   - Click **Save WebP as JPEG** to convert and download as JPEG.
-   - Click **Copy WebP as PNG to Clipboard** to copy the PNG image directly to your clipboard.
+3. Click **Save WebP as PNG** for instant 1-click conversion & download.
+4. *(Optional)* Enable **Show Advanced Context Submenus** in Popup Settings if you want direct access to JPEG conversion or Clipboard copying from the context menu.
 
 ### B. Drag & Drop Conversion in Popup
 1. Click the **WebP - PNG Converter** icon in your extension toolbar.
@@ -156,7 +154,7 @@ WEBPtoPNG/
 4. Files will be converted instantly:
    - Click **Save** on any list item to download individually.
    - Click **Copy** to copy the image to your clipboard.
-   - Click **ZIP Archive** to download all converted images in a single `.zip` file.
+   - Click **ZIP Download** to download all converted images in a single `.zip` file.
 
 ---
 
